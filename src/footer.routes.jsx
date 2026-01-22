@@ -4,7 +4,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LanguageIcon from "@mui/icons-material/Language";
 
-// Material Kit 2 React components
+// Techdawn.Online React components
 import MKTypography from "components/MKTypography";
 
 const date = new Date().getFullYear();

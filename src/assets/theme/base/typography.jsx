@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Material Kit 2 React - v2.1.0
+* Techdawn.Online React - v2.1.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/material-kit-react
@@ -14,15 +14,15 @@ Coded by www.creative-tim.com
 */
 
 /**
- * The base typography styles for the Material Kit 2 React.
+ * The base typography styles for the Techdawn.Online React.
  * You can add new typography style using this file.
- * You can customized the typography styles for the entire Material Kit 2 React using thie file.
+ * You can customized the typography styles for the entire Techdawn.Online React using thie file.
  */
 
-// Material Kit 2 React Base Styles
+// Techdawn.Online React Base Styles
 import colors from "assets/theme/base/colors";
 
-// Material Kit 2 React Helper Functions
+// Techdawn.Online React Helper Functions
 import pxToRem from "assets/theme/functions/pxToRem";
 
 const { dark } = colors;
