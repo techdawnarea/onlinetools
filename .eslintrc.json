@@ -1,0 +1,15 @@
+{
+  "extends": ["react-app", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "default-param-last": "off"
+  },
+  "settings": { "import/resolver": { "node": { "paths": ["src"] } } }
+}
