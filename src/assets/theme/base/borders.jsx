@@ -1,19 +1,4 @@
 /**
-=========================================================
-* Techdawn.Online React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-/**
  * The base border styles for the Techdawn.Online React.
  * You can add new border width, border color or border radius using this file.
  * You can customized the borders value for the entire Techdawn.Online React using thie file.
