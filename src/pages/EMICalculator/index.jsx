@@ -47,7 +47,7 @@ function calculateEMI(principal, annualRate, tenureYears) {
     return { emi: 0, totalAmount: 0, totalInterest: 0 };
   }
   const monthlyRate = annualRate / 12 / 100;
-  const months = tenureYears * 12;
+  const months = Math.round(tenureYears * 12);
   const emi =
     (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
     (Math.pow(1 + monthlyRate, months) - 1);
@@ -58,7 +58,7 @@ function calculateEMI(principal, annualRate, tenureYears) {
 
 function generateAmortization(principal, annualRate, tenureYears) {
   const monthlyRate = annualRate / 12 / 100;
-  const months = tenureYears * 12;
+  const months = Math.round(tenureYears * 12);
   const emi =
     (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
     (Math.pow(1 + monthlyRate, months) - 1);
@@ -95,7 +95,6 @@ function DonutChart({ principal, interest }) {
   const cy = 100;
   const circumference = 2 * Math.PI * radius;
 
-  const principalDash = principalPct * circumference;
   const interestDash = (1 - principalPct) * circumference;
 
   return (
@@ -119,14 +118,7 @@ function DonutChart({ principal, interest }) {
         </Box>
       </Box>
       <svg width="200" height="200" viewBox="0 0 200 200">
-        <circle
-          cx={cx}
-          cy={cy}
-          r={radius}
-          fill="none"
-          stroke="#e0e0e0"
-          strokeWidth={strokeWidth}
-        />
+        <circle cx={cx} cy={cy} r={radius} fill="none" stroke="#96a4aa" strokeWidth={strokeWidth} />
         <circle
           cx={cx}
           cy={cy}
@@ -148,6 +140,8 @@ function EMICalculator() {
   const [loanAmount, setLoanAmount] = useState(1000000);
   const [interestRate, setInterestRate] = useState(6.5);
   const [tenure, setTenure] = useState(5);
+  const [interestRateText, setInterestRateText] = useState("6.5");
+  const [tenureText, setTenureText] = useState("5");
   const [showAmortization, setShowAmortization] = useState(false);
   const [amortView, setAmortView] = useState("yearly");
 
@@ -181,13 +175,21 @@ function EMICalculator() {
   };
 
   const handleInterestInput = (e) => {
-    const val = parseFloat(e.target.value);
-    if (!isNaN(val) && val >= 0) setInterestRate(Math.min(val, 30));
+    const raw = e.target.value;
+    if (raw === "" || /^\d*\.?\d{0,2}$/.test(raw)) {
+      setInterestRateText(raw);
+      const val = parseFloat(raw);
+      if (!isNaN(val) && val >= 0 && val <= 30) setInterestRate(val);
+    }
   };
 
   const handleTenureInput = (e) => {
-    const val = parseInt(e.target.value, 10);
-    if (!isNaN(val) && val >= 0) setTenure(Math.min(val, 30));
+    const raw = e.target.value;
+    if (raw === "" || /^\d*\.?\d{0,2}$/.test(raw)) {
+      setTenureText(raw);
+      const val = parseFloat(raw);
+      if (!isNaN(val) && val >= 0 && val <= 30) setTenure(val);
+    }
   };
 
   return (
@@ -221,7 +223,14 @@ function EMICalculator() {
             <Grid item xs={12} md={7}>
               {/* Loan Amount */}
               <Box sx={{ mb: 4 }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: 1,
+                  }}
+                >
                   <Typography variant="body1" fontWeight="bold" color="text.primary">
                     Loan amount
                   </Typography>
@@ -257,7 +266,12 @@ function EMICalculator() {
                   step={50000}
                   sx={{
                     color: "#44b87f",
-                    "& .MuiSlider-thumb": { width: 18, height: 18, bgcolor: "white", border: "2px solid #44b87f" },
+                    "& .MuiSlider-thumb": {
+                      width: 18,
+                      height: 18,
+                      bgcolor: "white",
+                      border: "2px solid #44b87f",
+                    },
                     "& .MuiSlider-track": { height: 4 },
                     "& .MuiSlider-rail": { height: 4, bgcolor: "#e0e0e0" },
                   }}
@@ -266,13 +280,20 @@ function EMICalculator() {
 
               {/* Interest Rate */}
               <Box sx={{ mb: 4 }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: 1,
+                  }}
+                >
                   <Typography variant="body1" fontWeight="bold" color="text.primary">
                     Rate of interest (p.a)
                   </Typography>
                   <TextField
                     size="small"
-                    value={interestRate}
+                    value={interestRateText}
                     onChange={handleInterestInput}
                     InputProps={{
                       endAdornment: (
@@ -296,13 +317,22 @@ function EMICalculator() {
                 </Box>
                 <Slider
                   value={interestRate}
-                  onChange={(_, val) => setInterestRate(val)}
+                  onChange={(_, val) => {
+                    const v = Math.round(val * 100) / 100;
+                    setInterestRate(v);
+                    setInterestRateText(String(v));
+                  }}
                   min={1}
                   max={30}
-                  step={0.1}
+                  step={0.01}
                   sx={{
                     color: "#5367ff",
-                    "& .MuiSlider-thumb": { width: 18, height: 18, bgcolor: "white", border: "2px solid #5367ff" },
+                    "& .MuiSlider-thumb": {
+                      width: 18,
+                      height: 18,
+                      bgcolor: "white",
+                      border: "2px solid #5367ff",
+                    },
                     "& .MuiSlider-track": { height: 4 },
                     "& .MuiSlider-rail": { height: 4, bgcolor: "#e0e0e0" },
                   }}
@@ -311,13 +341,20 @@ function EMICalculator() {
 
               {/* Loan Tenure */}
               <Box sx={{ mb: 4 }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: 1,
+                  }}
+                >
                   <Typography variant="body1" fontWeight="bold" color="text.primary">
                     Loan tenure
                   </Typography>
                   <TextField
                     size="small"
-                    value={tenure}
+                    value={tenureText}
                     onChange={handleTenureInput}
                     InputProps={{
                       endAdornment: (
@@ -341,13 +378,22 @@ function EMICalculator() {
                 </Box>
                 <Slider
                   value={tenure}
-                  onChange={(_, val) => setTenure(val)}
+                  onChange={(_, val) => {
+                    const v = Math.round(val * 100) / 100;
+                    setTenure(v);
+                    setTenureText(String(v));
+                  }}
                   min={1}
                   max={30}
-                  step={1}
+                  step={0.01}
                   sx={{
                     color: "#5367ff",
-                    "& .MuiSlider-thumb": { width: 18, height: 18, bgcolor: "white", border: "2px solid #5367ff" },
+                    "& .MuiSlider-thumb": {
+                      width: 18,
+                      height: 18,
+                      bgcolor: "white",
+                      border: "2px solid #5367ff",
+                    },
                     "& .MuiSlider-track": { height: 4 },
                     "& .MuiSlider-rail": { height: 4, bgcolor: "#e0e0e0" },
                   }}
@@ -399,7 +445,12 @@ function EMICalculator() {
                 gap: 1,
               }}
             >
-              <Typography variant="body1" fontWeight="medium" fontStyle="italic" color="text.secondary">
+              <Typography
+                variant="body1"
+                fontWeight="medium"
+                fontStyle="italic"
+                color="text.secondary"
+              >
                 Your Amortization Details (Yearly/Monthly)
               </Typography>
               <IconButton size="small">
@@ -420,20 +471,33 @@ function EMICalculator() {
                   <ToggleButton value="monthly">Monthly</ToggleButton>
                 </ToggleButtonGroup>
 
-                <TableContainer component={Paper} elevation={0} sx={{ maxHeight: 400 }}>
-                  <Table stickyHeader size="small">
-                    <TableHead>
+                <TableContainer
+                  component={Paper}
+                  elevation={0}
+                  sx={{ maxHeight: 400, textAlign: "left" }}
+                >
+                  <Table size="small" sx={{ width: "100%", tableLayout: "fixed" }}>
+                    <TableHead sx={{ display: "table-header-group" }}>
                       <TableRow>
-                        <TableCell sx={{ fontWeight: "bold", bgcolor: "#f5f5f5" }}>
+                        <TableCell sx={{ fontWeight: "bold", bgcolor: "#f5f5f5", width: "20%" }}>
                           {amortView === "yearly" ? "Year" : "Month"}
                         </TableCell>
-                        <TableCell align="right" sx={{ fontWeight: "bold", bgcolor: "#f5f5f5" }}>
+                        <TableCell
+                          align="right"
+                          sx={{ fontWeight: "bold", bgcolor: "#f5f5f5", width: "27%" }}
+                        >
                           Principal (₹)
                         </TableCell>
-                        <TableCell align="right" sx={{ fontWeight: "bold", bgcolor: "#f5f5f5" }}>
+                        <TableCell
+                          align="right"
+                          sx={{ fontWeight: "bold", bgcolor: "#f5f5f5", width: "27%" }}
+                        >
                           Interest (₹)
                         </TableCell>
-                        <TableCell align="right" sx={{ fontWeight: "bold", bgcolor: "#f5f5f5" }}>
+                        <TableCell
+                          align="right"
+                          sx={{ fontWeight: "bold", bgcolor: "#f5f5f5", width: "26%" }}
+                        >
                           Balance (₹)
                         </TableCell>
                       </TableRow>
@@ -444,15 +508,9 @@ function EMICalculator() {
                           <TableCell>
                             {amortView === "yearly" ? `Year ${row.year}` : `Month ${row.month}`}
                           </TableCell>
-                          <TableCell align="right">
-                            {formatIndianCurrency(row.principal)}
-                          </TableCell>
-                          <TableCell align="right">
-                            {formatIndianCurrency(row.interest)}
-                          </TableCell>
-                          <TableCell align="right">
-                            {formatIndianCurrency(row.balance)}
-                          </TableCell>
+                          <TableCell align="right">{formatIndianCurrency(row.principal)}</TableCell>
+                          <TableCell align="right">{formatIndianCurrency(row.interest)}</TableCell>
+                          <TableCell align="right">{formatIndianCurrency(row.balance)}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
