@@ -65,17 +65,16 @@ const styles = StyleSheet.create({
   signatureBox: {
     width: "45%",
     textAlign: "center",
-    border: "1px solid #f0cc2f4f",
+    // border: "1px solid #f0cc2f4f",
   },
-  signatureBoxBuyer: {
-    width: "45%",
-    textAlign: "center",
-    border: "1px solid #f0cc2f4f",
-  },
-  signatureBoxSeller: {
-    width: "45%",
-    textAlign: "center",
-    border: "1px solid #f0cc2f4f",
+  signatureWatermark: {
+    fontSize: 32,
+    opacity: 0.1,
+    textAlign: "left",
+    position: "absolute",
+    top: 4,
+    left: 0,
+    right: 0,
   },
   signatureLine: {
     borderTop: "1px solid #000",
@@ -245,6 +244,7 @@ const VehicleTransferPDF = ({ formData }) => {
 
         <View style={styles.signatureSection}>
           <View style={styles.signatureBox}>
+            <Text style={styles.signatureWatermark}>B</Text>
             <Text style={styles.signatureLine}>Signature of Buyer</Text>
           </View>
           <View style={styles.signatureBox}>
@@ -369,102 +369,90 @@ const VehicleTransferPDF = ({ formData }) => {
         </Text>
 
         <Text style={styles.paragraph}>
-          I/we <Text style={styles.inlineValue}>{buyerName || "______"}</Text>
-          Son/Daughter/Wife of <Text style={styles.inlineValue}>{buyerCareOf || "______"}</Text>
+          I/ we (4) <Text style={styles.inlineValue}>{buyerName || "______"}</Text>
+          {"  "}Son/Daughter/Wife of (5){" "}
+          <Text style={styles.inlineValue}>{buyerCareOf || "______"}</Text>
         </Text>
 
         <Text style={styles.paragraph}>
-          Of Vill- <Text style={styles.inlineValue}>{buyerVillage || "____"}</Text> P.O.-{" "}
-          <Text style={styles.inlineValue}>{buyerPO || "____"}</Text> P.S.-{" "}
-          <Text style={styles.inlineValue}>{buyerPS || "____"}</Text>
+          Of (6) Vill- <Text style={styles.inlineValue}>{buyerVillage || "____"}</Text>
+          {"  "}P.O.- <Text style={styles.inlineValue}>{buyerPO || "____"}</Text>
+          {"  "}P.S.- <Text style={styles.inlineValue}>{buyerPS || "____"}</Text>
+          {"  "}Forward here with the certificate of Registration and the certificate of fitness (7)
+          of Motor Vehicle No.- <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> (8)
+          the ownership of which has been transferred to me/us by{" "}
+          <Text style={styles.inlineValue}>{sellerName || "______"}</Text> (Owner)
         </Text>
-
-        <View style={styles.divider} />
-
-        <Text style={styles.subTitle}>Part-II For the use of Transferee</Text>
-        <View style={{ marginBottom: 10 }}>
-          <Text>To, The Registering Authority, Contai</Text>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={{ marginBottom: 4 }}>
-            Name of the Transferee (buyer) --{" "}
-            <Text style={styles.inlineValue}>{buyerName || "______"}</Text>
-          </Text>
-          <Text style={{ marginBottom: 4 }}>
-            Son of-- <Text style={styles.inlineValue}>{buyerCareOf || "______"}</Text>
-          </Text>
-          <Text style={{ marginBottom: 4 }}>
-            Full address— <Text style={styles.inlineValue}>{buyerAddress || "______"}</Text>
-          </Text>
-          <Text style={{ fontSize: 8, marginTop: 2 }}>(Proof of address to be enclosed)</Text>
-        </View>
 
         <Text style={styles.paragraph}>
-          I hereby declare that I have on this{" "}
-          <Text style={styles.inlineValue}>{purchaseDate || "____"}</Text> The year{" "}
-          <Text style={styles.inlineValue}>{purchaseYear || "____"}</Text> Purchased the motor
-          vehicle bearing registration number{" "}
-          <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> from{" "}
-          <Text style={styles.inlineValue}>{sellerName || "______"}</Text> (Seller){" "}
-          <Text style={styles.inlineValue}>{sellerAddress || "______"}</Text> (name and full
-          address) and request that necessary entries regarding the transfer of ownership of the
-          vehicle in my/our name may be recorded in the certificate of registration/certificate of
-          fitness of the vehicle which is enclosed.
+          (9) and here by request that the said vehicle may be registered in my/our name and that
+          the certificate of Registration be amended accordingly.
         </Text>
-
-        <Text style={styles.paragraph}>The certificate of insurance is also enclosed.</Text>
 
         <View style={styles.signatureSection}>
-          <View style={styles.signatureBox}>
-            <Text style={{ fontSize: 8 }}>Specimen signature of the Transferee</Text>
-            <Text style={styles.signatureLine}>Buyer signature</Text>
+          <View style={{ flex: 1 }}>
+            <Text>
+              Date- <Text style={styles.inlineValue}>{purchaseDate || "____"}</Text>
+            </Text>
           </View>
           <View style={styles.signatureBox}>
-            <Text style={{ fontSize: 8 }}>Signature of Transferee (Buyer)</Text>
-            <Text style={styles.signatureLine}>Buyer signature</Text>
+            <Text style={styles.signatureWatermark}>B</Text>
+            <Text style={styles.signatureLine}>
+              Signature or Thumb{"\n"}impression of the Transferee (Buyer)
+            </Text>
           </View>
         </View>
 
-        <View style={styles.divider} />
-
-        <Text style={styles.subTitle}>
-          Consent of the Financer in the case of motor vehicle subject to an agreement of hire
-          purchase/lease/hypothecation
-        </Text>
-        <Text style={styles.paragraph}>
-          I/we being a party to an agreement of hire-purchase/lease/hypothecation in respect of
-          motor vehicle <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> give consent
-          to the transfer of ownership of the said vehicle to Sri{" "}
-          <Text style={styles.inlineValue}>{buyerName || "______"}</Text> with whom I/we have
-          entered into an agreement of hire purchase/lease/hypothecation.
+        <Text style={{ ...styles.paragraph, marginTop: 15 }}>
+          Note- The Motor vehicle described above is held by the person to be registered as the new
+          Registered Owner under an agreement of hire/purchase/hypothecation with{" "}
+          <Text style={styles.inlineValue}>{financerName || "______"}</Text> (10) and it is
+          requested that necessary entry by made in the certificate of Registration.
         </Text>
 
-        <Text style={{ marginBottom: 4 }}>
-          Date- <Text style={styles.inlineValue}>{purchaseDate || "____"}</Text>
-          {"                              "}(Signature of the Financer)
-        </Text>
-
-        <View style={styles.officialUse}>
-          <Text style={styles.subTitle}>OFFICE ENDORSEMENT</Text>
-          <View style={styles.row}>
-            <Text>NO.__________ DATED__________</Text>
-          </View>
-          <Text>Office of the-</Text>
-          <Text style={styles.paragraph}>
-            The transfer of ownership of vehicle has been recorded w.e.f.__________ on the
-            Registration Certificate of the Vehicle{" "}
-            <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> and in the Registration
-            record of this office.
-          </Text>
-          <Text style={{ textAlign: "right", marginTop: 20 }}>Registering Authority</Text>
-          <View style={{ marginTop: 10 }}>
-            <Text style={styles.inlineValue}>
-              {financerName ? `${financerName}, ${financerAddress}` : "                "}
+        <View style={styles.signatureSection}>
+          <View style={{ flex: 1 }}>
+            <Text>
+              Date- <Text style={styles.inlineValue}>{purchaseDate || "____"}</Text>
             </Text>
-            <Text style={{ fontSize: 8 }}>(Name & address of the Financer)</Text>
-            <Text style={{ fontSize: 8, marginTop: 4 }}>
-              By Registered post of delivered under proper acknowledgement.
+          </View>
+          <View style={styles.signatureBox}>
+            <Text style={styles.signatureWatermark}>S</Text>
+            <Text style={styles.signatureLine}>Signature of Owner</Text>
+          </View>
+        </View>
+
+        <View style={styles.signatureSection}>
+          <View style={{ flex: 1 }}></View>
+          <View style={styles.signatureBox}>
+            <Text style={styles.signatureWatermark}>B</Text>
+            <Text style={styles.signatureLine}>Signature of Hire Purchaser</Text>
+
+            <Text>
+              {"\n"}
+              Company Mortgaged{" "}
+              <Text style={styles.inlineValue}>{"___________________________"}</Text>
+            </Text>
+          </View>
+        </View>
+
+        <Text style={{ ...styles.paragraph, marginTop: 15 }}>
+          Endorsement in the case of a vehicle which was held by the transfer or under an agreement
+          of hire purchase/hypothecation.
+        </Text>
+
+        <Text style={{ ...styles.paragraph, marginLeft: 20 }}>
+          I/We being a party to an agreement of hire-purchase/hypothecation in respect of the
+          vehicle to (4) <Text style={styles.inlineValue}>{buyerName || "______"}</Text> of{" "}
+          <Text style={styles.inlineValue}>{buyerAddress || "______"}</Text> (5) with whom I/we have
+          entered into an agreement or hire purchase/hypothecation in respect if this vehicle (1)
+        </Text>
+
+        <View style={styles.signatureSection}>
+          <View style={{ flex: 1 }}></View>
+          <View style={styles.signatureBox}>
+            <Text style={styles.signatureLine}>
+              Signature of the Party{"\n"}(Other than the owner)
             </Text>
           </View>
         </View>
@@ -525,6 +513,7 @@ const VehicleTransferPDF = ({ formData }) => {
         <View style={styles.signatureSection}>
           <View style={{ flex: 1 }}></View>
           <View style={styles.signatureBox}>
+            <Text style={styles.signatureWatermark}>S</Text>
             <Text style={styles.signatureLine}>Signature of the Registered Owner (Transferor)</Text>
           </View>
         </View>
@@ -636,6 +625,7 @@ const VehicleTransferPDF = ({ formData }) => {
             <Text>Date: {purchaseDate}</Text>
           </View>
           <View style={styles.signatureBox}>
+            <Text style={styles.signatureWatermark}>S</Text>
             <Text style={styles.signatureLine}>Signature of the Transferor</Text>
           </View>
         </View>
@@ -694,6 +684,7 @@ const VehicleTransferPDF = ({ formData }) => {
             <Text>2.</Text>
           </View>
           <View style={styles.signatureBox}>
+            <Text style={styles.signatureWatermark}>B</Text>
             <Text style={styles.signatureLine}>Signature of the Transferee (Buyer)</Text>
           </View>
         </View>
