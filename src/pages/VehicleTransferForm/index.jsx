@@ -14,42 +14,42 @@ import bgImage from "assets/images/bg-presentation.jpg";
 
 const VehicleTransferPage = () => {
   const [formData, setFormData] = useState({
-    vehicleNo: "WB20A1234",
-    chassisNo: "ME4JC36KDE7436087",
-    engineNo: "JC36E73423728",
-    vehicleModel: "CB SHINE",
-    buyerName: "Prakiti Nanda Goswami",
-    buyerCareOf: "Jagadish Nanda Goswami",
-    buyerVillage: "Argoal",
-    buyerPO: "Argoal",
-    buyerPS: "Patashpur",
-    buyerDist: "Purba Medinipur",
-    buyerPin: "721456",
-    buyerVoterId: "MXC1343234",
-    buyerAadhar: "838394480466",
-    buyerPan: "DRCPN6373P",
-    buyerMobile: "9501239627",
-    sellerName: "Ajay Kumar Bera",
-    sellerCareOf: "Nagendranath Bera",
-    sellerVillage: "Dhanyaharibar",
-    sellerPO: "Madan Modanpur",
-    sellerPS: "BHUPATINAGAR",
-    sellerDist: "Purba Medinipur",
-    sellerPin: "Bhupatinagar",
-    sellerVoterId: "721454",
-    sellerAadhar: "SELLERAADHAR1234",
-    sellerPan: "SELLERPAN1234",
-    sellerMobile: "SELLERMOBILE1234",
-    rcValidUpto: "2028-01-23",
-    taxTokenValidUpto: "2028-01-23",
-    insuranceValidUpto: "2028-01-23",
-    seatingCapacity: "1+1",
-    appearanceDate: "", //"2028-01-23",
-    purchaseDate: "2025-01-23",
-    purchaseYear: new Date().getFullYear().toString(),
-    financerName: "HDFC Argo",
-    financerAddress: "Contai, West Bengal",
-    applicationFee: "12345",
+    vehicleNo: "",
+    chassisNo: "",
+    engineNo: "",
+    vehicleModel: "",
+    buyerName: "",
+    buyerCareOf: "",
+    buyerVillage: "",
+    buyerPO: "",
+    buyerPS: "",
+    buyerDist: "",
+    buyerPin: "",
+    buyerVoterId: "",
+    buyerAadhar: "",
+    buyerPan: "",
+    buyerMobile: "",
+    sellerName: "",
+    sellerCareOf: "",
+    sellerVillage: "",
+    sellerPO: "",
+    sellerPS: "",
+    sellerDist: "",
+    sellerPin: "",
+    sellerVoterId: "",
+    sellerAadhar: "",
+    sellerPan: "",
+    sellerMobile: "",
+    rcValidUpto: "",
+    taxTokenValidUpto: "",
+    insuranceValidUpto: "",
+    seatingCapacity: "",
+    appearanceDate: "",
+    purchaseDate: "",
+    purchaseYear: "",
+    financerName: "",
+    financerAddress: "",
+    applicationFee: "",
   });
 
   const handleChange = (e) => {
@@ -58,6 +58,10 @@ const VehicleTransferPage = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleClear = () => {
+    setFormData(Object.fromEntries(Object.keys(formData).map((key) => [key, ""])));
   };
 
   return (
@@ -89,7 +93,11 @@ const VehicleTransferPage = () => {
           <Grid container spacing={3} sx={{ height: "85vh" }}>
             {/* Left Side: Input Form */}
             <Grid item xs={12} md={5} sx={{ height: "100%" }}>
-              <VehicleTransferInputForm formData={formData} handleChange={handleChange} />
+              <VehicleTransferInputForm
+                formData={formData}
+                handleChange={handleChange}
+                handleClear={handleClear}
+              />
             </Grid>
 
             {/* Right Side: PDF Preview */}

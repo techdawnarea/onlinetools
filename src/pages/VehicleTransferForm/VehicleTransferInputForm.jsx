@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { Grid, TextField, Typography, Box, Paper, Divider } from "@mui/material";
+import { Grid, TextField, Typography, Box, Paper, Button } from "@mui/material";
 
-const VehicleTransferInputForm = ({ formData, handleChange }) => {
+const VehicleTransferInputForm = ({ formData, handleChange, handleClear }) => {
   const sections = [
     {
       title: "Vehicle Information",
@@ -68,9 +68,24 @@ const VehicleTransferInputForm = ({ formData, handleChange }) => {
 
   return (
     <Box component={Paper} elevation={3} sx={{ p: 3, height: "100%", overflowY: "auto" }}>
-      <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold", color: "primary.main" }}>
-        Vehicle Transfer Form Data
-      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
+        <Typography variant="h5" sx={{ fontWeight: "bold", color: "primary.main" }}>
+          Vehicle Transfer Form Data
+        </Typography>
+        <Button
+          variant="contained"
+          size="small"
+          onClick={handleClear}
+          sx={{
+            backgroundColor: "#d32f2f",
+            color: "#fff",
+            fontWeight: "bold",
+            "&:hover": { backgroundColor: "#b71c1c" },
+          }}
+        >
+          Clear Form
+        </Button>
+      </Box>
 
       {sections.map((section, sIndex) => (
         <Box key={sIndex} sx={{ mb: 4 }}>
@@ -103,6 +118,7 @@ const VehicleTransferInputForm = ({ formData, handleChange }) => {
 VehicleTransferInputForm.propTypes = {
   formData: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleClear: PropTypes.func.isRequired,
 };
 
 export default VehicleTransferInputForm;
