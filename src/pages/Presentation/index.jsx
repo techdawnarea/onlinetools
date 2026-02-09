@@ -158,6 +158,20 @@ function Presentation() {
                 }}
               />
             </Grid>
+            <Grid item xs={12} lg={4}>
+              <FilledInfoCard
+                variant="gradient"
+                color="success"
+                icon="directions_car"
+                title="Vehicle Transfer Form"
+                description="Generate vehicle transfer ownership forms (T.O., Form 29, Form 30, Sale Receipt)."
+                action={{
+                  type: "internal",
+                  route: "/tools/vehicle-transfer",
+                  label: "Open Tool",
+                }}
+              />
+            </Grid>
           </Grid>
         </Container>
         <MKBox pt={12} pb={6}>
