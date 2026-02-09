@@ -42,6 +42,11 @@ const routes = [
         description: "Calculate loan EMI and amortization",
         route: "/tools/emi-calculator",
       },
+      {
+        name: "SIP Calculator",
+        description: "Calculate SIP returns and wealth growth",
+        route: "/tools/sip-calculator",
+      },
     ],
   },
   {

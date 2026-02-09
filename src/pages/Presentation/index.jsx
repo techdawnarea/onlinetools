@@ -103,6 +103,20 @@ function Presentation() {
                 }}
               />
             </Grid>
+            <Grid item xs={12} lg={4}>
+              <FilledInfoCard
+                variant="gradient"
+                color="warning"
+                icon="trending_up"
+                title="SIP Calculator"
+                description="Calculate your SIP returns, total wealth gained and view year-wise breakdown."
+                action={{
+                  type: "internal",
+                  route: "/tools/sip-calculator",
+                  label: "Open Tool",
+                }}
+              />
+            </Grid>
             {/* <Grid item xs={12} lg={4}>
               <FilledInfoCard
                 variant="gradient"
