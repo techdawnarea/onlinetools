@@ -89,6 +89,20 @@ function Presentation() {
                 }}
               />
             </Grid>
+            <Grid item xs={12} lg={4}>
+              <FilledInfoCard
+                variant="gradient"
+                color="info"
+                icon="calculate"
+                title="EMI Calculator"
+                description="Calculate loan EMI, total interest, and view detailed amortization schedule."
+                action={{
+                  type: "internal",
+                  route: "/tools/emi-calculator",
+                  label: "Open Tool",
+                }}
+              />
+            </Grid>
             {/* <Grid item xs={12} lg={4}>
               <FilledInfoCard
                 variant="gradient"

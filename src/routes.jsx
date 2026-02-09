@@ -37,6 +37,11 @@ const routes = [
         description: "Generate Vehicle Transfer Forms",
         route: "/tools/vehicle-transfer",
       },
+      {
+        name: "EMI Calculator",
+        description: "Calculate loan EMI and amortization",
+        route: "/tools/emi-calculator",
+      },
     ],
   },
   {

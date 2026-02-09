@@ -491,8 +491,8 @@ const VehicleTransferPDF = ({ formData }) => {
         </Text>
 
         <Text style={styles.paragraph}>
-          Dist- <Text style={styles.inlineValue}>{buyerDist || "Midnapore"}</Text> in consideration
-          of the estimated value and in receipt of the agreed of Rs.{" "}
+          Dist- <Text style={styles.inlineValue}>{buyerDist || "______"}</Text> in consideration of
+          the estimated value and in receipt of the agreed of Rs.{" "}
           <Text style={styles.inlineValue}>{applicationFee || "______"}</Text> (Rupees in Word{" "}
           <Text style={styles.inlineValue}>{"______________________________"}</Text>)
         </Text>
