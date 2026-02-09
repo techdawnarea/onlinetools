@@ -1,0 +1,807 @@
+import { Document, Page, Text, View, StyleSheet, Font } from "@react-pdf/renderer";
+import PropTypes from "prop-types";
+
+// Register fonts for better rendering
+Font.register({
+  family: "Roboto",
+  fonts: [
+    {
+      src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf",
+      fontWeight: "normal",
+    },
+    {
+      src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf",
+      fontWeight: "bold",
+    },
+  ],
+});
+
+const styles = StyleSheet.create({
+  page: {
+    padding: 30,
+    fontSize: 11,
+    fontFamily: "Roboto",
+    lineHeight: 1.4,
+  },
+  header: {
+    textAlign: "center",
+    marginBottom: 15,
+    fontWeight: "bold",
+    fontSize: 12,
+  },
+  section: {
+    marginBottom: 12,
+  },
+  row: {
+    flexDirection: "row",
+    marginBottom: 4,
+    flexWrap: "wrap",
+    alignItems: "flex-end", // Align text to bottom for baseline alignment
+  },
+  label: {
+    fontWeight: "bold",
+    width: 120,
+  },
+  value: {
+    flex: 1,
+    borderBottom: "1px solid #000",
+    paddingBottom: 2,
+  },
+  inlineValue: {
+    // textDecoration: "underline",
+    fontWeight: "bold",
+  },
+  paragraph: {
+    marginBottom: 8,
+    textAlign: "justify",
+    // lineHeight: 1.6,
+    // fontSize: 10,
+  },
+  signatureSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
+  signatureBox: {
+    width: "45%",
+    textAlign: "center",
+    border: "1px solid #f0cc2f4f",
+  },
+  signatureBoxBuyer: {
+    width: "45%",
+    textAlign: "center",
+    border: "1px solid #f0cc2f4f",
+  },
+  signatureBoxSeller: {
+    width: "45%",
+    textAlign: "center",
+    border: "1px solid #f0cc2f4f",
+  },
+  signatureLine: {
+    borderTop: "1px solid #000",
+    marginTop: 40,
+    paddingTop: 4,
+  },
+  detailsBox: {
+    border: "1px solid #000",
+    padding: 10,
+    marginBottom: 10,
+  },
+  detailsTitle: {
+    fontWeight: "bold",
+    marginBottom: 8,
+    fontSize: 11,
+    // textDecoration: "underline",
+  },
+  detailsGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  detailItem: {
+    width: "48%",
+    flexDirection: "row",
+    marginBottom: 4,
+    marginHorizontal: 5,
+  },
+  detailLabel: {
+    fontWeight: "bold",
+    width: 60,
+  },
+  detailValue: {
+    flex: 1,
+    borderBottom: "1px dotted #000",
+  },
+  divider: {
+    borderBottom: "2px solid #000",
+    marginVertical: 15,
+  },
+  formTitle: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 14,
+    marginBottom: 10,
+    textDecoration: "underline",
+  },
+  subTitle: {
+    fontWeight: "bold",
+    marginBottom: 6,
+    fontSize: 11,
+    textAlign: "center",
+  },
+  officialUse: {
+    border: "1px solid #000",
+    padding: 10,
+    marginTop: 15,
+  },
+  toAddress: {
+    marginBottom: 10,
+  },
+  bold: {
+    fontWeight: "bold",
+  },
+  center: {
+    textAlign: "center",
+  },
+});
+
+const VehicleTransferPDF = ({ formData }) => {
+  const {
+    vehicleNo = "",
+    chassisNo = "",
+    engineNo = "",
+    vehicleModel = "",
+    buyerName = "",
+    buyerCareOf = "",
+    buyerVillage = "",
+    buyerPO = "",
+    buyerPS = "",
+    buyerDist = "",
+    buyerPin = "",
+    buyerVoterId = "",
+    buyerAadhar = "",
+    buyerPan = "",
+    buyerMobile = "",
+    sellerName = "",
+    sellerCareOf = "",
+    sellerVillage = "",
+    sellerPO = "",
+    sellerPS = "",
+    sellerDist = "",
+    sellerPin = "",
+    sellerVoterId = "",
+    sellerAadhar = "",
+    sellerPan = "",
+    sellerMobile = "",
+    rcValidUpto = "",
+    taxTokenValidUpto = "",
+    insuranceValidUpto = "",
+    seatingCapacity = "",
+    appearanceDate = "",
+    purchaseDate = "",
+    purchaseYear = "",
+    financerName = "",
+    financerAddress = "",
+    applicationFee = "",
+  } = formData;
+
+  const buyerAddress = `${buyerVillage}, P.O.- ${buyerPO}, P.S.- ${buyerPS}, Dist- ${buyerDist}`;
+  const sellerAddress = `${sellerVillage}, P.O.- ${sellerPO}, P.S.- ${sellerPS}, Dist- ${sellerDist}`;
+
+  return (
+    <Document>
+      {/* Page 1: T.O. Slip */}
+      <Page size="A4" style={styles.page}>
+        <Text style={styles.header}>T.O.</Text>
+
+        <Text style={{ ...styles.paragraph, fontSize: 12 }}>
+          &nbsp; The following papers of vehicle No.{" "}
+          <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> Submitted by{" "}
+          <Text style={styles.inlineValue}>{buyerName || "______"}</Text>&nbsp; Village{" "}
+          <Text style={styles.inlineValue}>{buyerVillage || "____"}</Text> P.O.{" "}
+          <Text style={styles.inlineValue}>{buyerPO || "____"}</Text> P.S.{" "}
+          <Text style={styles.inlineValue}>{buyerPS || "____"}</Text> Dist-{" "}
+          <Text style={styles.inlineValue}>{buyerDist || "Purba Medinipur"}</Text>
+          <Text>
+            &nbsp; in connection with transfer ownership/ Registration Conversion / Change of Engine
+            and Chassis / Duplicate R.C. Book for the vehicles Change of Address are kept in this
+            office.
+          </Text>
+        </Text>
+
+        <View style={styles.section}>
+          <Text style={{ marginBottom: 4 }}>
+            1) Registration Certificate Valid up to{" "}
+            <Text style={styles.inlineValue}>{rcValidUpto || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            2) Tax token of Chelan valid up to{" "}
+            <Text style={styles.inlineValue}>{taxTokenValidUpto || "Lifetime"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            3) Insurance Certificate valid up to{" "}
+            <Text style={styles.inlineValue}>{insuranceValidUpto || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            4) Sale Intimation letter from{" "}
+            <Text style={styles.inlineValue}>{sellerName || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            5) R.L.W./U.L.W. Seating Capacity{" "}
+            <Text style={styles.inlineValue}>{seatingCapacity || "______"}</Text>
+          </Text>
+        </View>
+
+        <Text style={styles.paragraph}>
+          Transfer of Ownership / Registration/Change of address of the vehicle not yet been
+          effected.
+        </Text>
+        <Text style={styles.paragraph}>
+          This slip should be returned as and when called for this of the application is requested
+          to appear at the counter of the Motor Vehicles Office, Contai on or before
+          <Text style={styles.inlineValue}> {appearanceDate || "______"} </Text>
+          for entertaining future action to be taken by this respect. No further information given
+          by this officer.
+        </Text>
+
+        <View style={styles.signatureSection}>
+          <View style={styles.signatureBox}>
+            <Text style={styles.signatureLine}>Signature of Buyer</Text>
+          </View>
+          <View style={styles.signatureBox}>
+            <Text style={styles.signatureLine}>Registering Authority</Text>
+          </View>
+        </View>
+
+        <Text style={{ marginBottom: 4 }}>
+          Sales Amount- <Text style={styles.inlineValue}>{applicationFee || "____"}</Text>
+        </Text>
+
+        <View style={styles.divider} />
+
+        {/* Details Boxes */}
+        <View style={styles.detailsBox}>
+          <Text style={styles.detailsTitle}>Buyers Details</Text>
+          <View style={styles.detailsGrid}>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>NAME-</Text>
+              <Text style={styles.detailValue}>{buyerName}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>C/O-</Text>
+              <Text style={styles.detailValue}>{buyerCareOf}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>VILL-</Text>
+              <Text style={styles.detailValue}>{buyerVillage}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>P.O.-</Text>
+              <Text style={styles.detailValue}>{buyerPO}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>P.S.-</Text>
+              <Text style={styles.detailValue}>{buyerPS}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>DIST-</Text>
+              <Text style={styles.detailValue}>{buyerDist}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>PIN-</Text>
+              <Text style={styles.detailValue}>{buyerPin}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>VOTER ID-</Text>
+              <Text style={styles.detailValue}>{buyerVoterId}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>AADHAR-</Text>
+              <Text style={styles.detailValue}>{buyerAadhar}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>PAN-</Text>
+              <Text style={styles.detailValue}>{buyerPan}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>MOB-</Text>
+              <Text style={styles.detailValue}>{buyerMobile}</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.detailsBox}>
+          <Text style={styles.detailsTitle}>Sellers Details</Text>
+          <View style={styles.detailsGrid}>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>NAME-</Text>
+              <Text style={styles.detailValue}>{sellerName}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>C/O-</Text>
+              <Text style={styles.detailValue}>{sellerCareOf}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>VILL-</Text>
+              <Text style={styles.detailValue}>{sellerVillage}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>P.O.-</Text>
+              <Text style={styles.detailValue}>{sellerPO}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>P.S.-</Text>
+              <Text style={styles.detailValue}>{sellerPS}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>DIST-</Text>
+              <Text style={styles.detailValue}>{sellerDist}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>PIN-</Text>
+              <Text style={styles.detailValue}>{sellerPin}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>VOTER ID-</Text>
+              <Text style={styles.detailValue}>{sellerVoterId}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>AADHAR-</Text>
+              <Text style={styles.detailValue}>{sellerAadhar}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>PAN-</Text>
+              <Text style={styles.detailValue}>{sellerPan}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>MOB-</Text>
+              <Text style={styles.detailValue}>{sellerMobile}</Text>
+            </View>
+          </View>
+        </View>
+      </Page>
+
+      {/* Page 2: FORM T.O. */}
+      <Page size="A4" style={styles.page}>
+        <Text style={styles.formTitle}>FORM T.O.</Text>
+        <Text style={{ textAlign: "center", marginBottom: 15 }}>
+          Intimation of transfer of ownership of a Motor Vehicle (by the Transferee) Rules 41(c) and
+          42(aa) of the Bengal Motor Vehicles Rules, 1940)
+        </Text>
+
+        <Text style={styles.paragraph}>
+          I/we <Text style={styles.inlineValue}>{buyerName || "______"}</Text>
+          Son/Daughter/Wife of <Text style={styles.inlineValue}>{buyerCareOf || "______"}</Text>
+        </Text>
+
+        <Text style={styles.paragraph}>
+          Of Vill- <Text style={styles.inlineValue}>{buyerVillage || "____"}</Text> P.O.-{" "}
+          <Text style={styles.inlineValue}>{buyerPO || "____"}</Text> P.S.-{" "}
+          <Text style={styles.inlineValue}>{buyerPS || "____"}</Text>
+        </Text>
+
+        <View style={styles.divider} />
+
+        <Text style={styles.subTitle}>Part-II For the use of Transferee</Text>
+        <View style={{ marginBottom: 10 }}>
+          <Text>To, The Registering Authority, Contai</Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{ marginBottom: 4 }}>
+            Name of the Transferee (buyer) --{" "}
+            <Text style={styles.inlineValue}>{buyerName || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            Son of-- <Text style={styles.inlineValue}>{buyerCareOf || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            Full address— <Text style={styles.inlineValue}>{buyerAddress || "______"}</Text>
+          </Text>
+          <Text style={{ fontSize: 8, marginTop: 2 }}>(Proof of address to be enclosed)</Text>
+        </View>
+
+        <Text style={styles.paragraph}>
+          I hereby declare that I have on this{" "}
+          <Text style={styles.inlineValue}>{purchaseDate || "____"}</Text> The year{" "}
+          <Text style={styles.inlineValue}>{purchaseYear || "____"}</Text> Purchased the motor
+          vehicle bearing registration number{" "}
+          <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> from{" "}
+          <Text style={styles.inlineValue}>{sellerName || "______"}</Text> (Seller){" "}
+          <Text style={styles.inlineValue}>{sellerAddress || "______"}</Text> (name and full
+          address) and request that necessary entries regarding the transfer of ownership of the
+          vehicle in my/our name may be recorded in the certificate of registration/certificate of
+          fitness of the vehicle which is enclosed.
+        </Text>
+
+        <Text style={styles.paragraph}>The certificate of insurance is also enclosed.</Text>
+
+        <View style={styles.signatureSection}>
+          <View style={styles.signatureBox}>
+            <Text style={{ fontSize: 8 }}>Specimen signature of the Transferee</Text>
+            <Text style={styles.signatureLine}>Buyer signature</Text>
+          </View>
+          <View style={styles.signatureBox}>
+            <Text style={{ fontSize: 8 }}>Signature of Transferee (Buyer)</Text>
+            <Text style={styles.signatureLine}>Buyer signature</Text>
+          </View>
+        </View>
+
+        <View style={styles.divider} />
+
+        <Text style={styles.subTitle}>
+          Consent of the Financer in the case of motor vehicle subject to an agreement of hire
+          purchase/lease/hypothecation
+        </Text>
+        <Text style={styles.paragraph}>
+          I/we being a party to an agreement of hire-purchase/lease/hypothecation in respect of
+          motor vehicle <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> give consent
+          to the transfer of ownership of the said vehicle to Sri{" "}
+          <Text style={styles.inlineValue}>{buyerName || "______"}</Text> with whom I/we have
+          entered into an agreement of hire purchase/lease/hypothecation.
+        </Text>
+
+        <Text style={{ marginBottom: 4 }}>
+          Date- <Text style={styles.inlineValue}>{purchaseDate || "____"}</Text>
+          {"                              "}(Signature of the Financer)
+        </Text>
+
+        <View style={styles.officialUse}>
+          <Text style={styles.subTitle}>OFFICE ENDORSEMENT</Text>
+          <View style={styles.row}>
+            <Text>NO.__________ DATED__________</Text>
+          </View>
+          <Text>Office of the-</Text>
+          <Text style={styles.paragraph}>
+            The transfer of ownership of vehicle has been recorded w.e.f.__________ on the
+            Registration Certificate of the Vehicle{" "}
+            <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> and in the Registration
+            record of this office.
+          </Text>
+          <Text style={{ textAlign: "right", marginTop: 20 }}>Registering Authority</Text>
+          <View style={{ marginTop: 10 }}>
+            <Text style={styles.inlineValue}>
+              {financerName ? `${financerName}, ${financerAddress}` : "                "}
+            </Text>
+            <Text style={{ fontSize: 8 }}>(Name & address of the Financer)</Text>
+            <Text style={{ fontSize: 8, marginTop: 4 }}>
+              By Registered post of delivered under proper acknowledgement.
+            </Text>
+          </View>
+        </View>
+      </Page>
+
+      {/* Page 3: Form 29 - Notice of Transfer of Ownership */}
+      <Page size="A4" style={styles.page}>
+        <Text style={styles.formTitle}>FORM 29</Text>
+        <Text style={styles.subTitle}>[See Rule 55(1)]</Text>
+        <Text style={styles.subTitle}>NOTICE OF TRANSFER OF OWNERSHIP OF A MOTOR VEHICLE</Text>
+        <Text style={{ textAlign: "center", marginBottom: 15 }}>
+          (To be made in duplicate and the duplicate copy with the endorsement of the Registering
+          Authority to be returned to the transferor immediately on matching the entry of the
+          Transfer of ownership in the certificate of Registration and Registration Record)
+        </Text>
+
+        <View style={styles.toAddress}>
+          <Text>To,</Text>
+          <Text>The Registering Authority</Text>
+          <Text>Contai</Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{ marginBottom: 4 }}>
+            Name of the Transferor (Seller):{" "}
+            <Text style={styles.inlineValue}>{sellerName || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            Son/Wife/Daughter of: <Text style={styles.inlineValue}>{sellerCareOf || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            Full Address: <Text style={styles.inlineValue}>{sellerAddress || "______"}</Text>
+          </Text>
+        </View>
+
+        <Text style={styles.paragraph}>
+          I hereby declare that I/we have on this{" "}
+          <Text style={styles.inlineValue}>{purchaseDate || "____"}</Text> day of the year{" "}
+          <Text style={styles.inlineValue}>{purchaseYear || "____"}</Text> sold and delivered my
+          motor vehicle no <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> Make{" "}
+          <Text style={styles.inlineValue}>{vehicleModel || "______"}</Text> Chassis No{" "}
+          <Text style={styles.inlineValue}>{chassisNo || "______"}</Text> Engine No{" "}
+          <Text style={styles.inlineValue}>{engineNo || "______"}</Text> To Sri/Smt{" "}
+          <Text style={styles.inlineValue}>{buyerName || "______"}</Text> (Buyer)
+        </Text>
+
+        <Text style={styles.paragraph}>
+          Son/Wife/Daughter of <Text style={styles.inlineValue}>{buyerCareOf || "______"}</Text>{" "}
+          Residing at <Text style={styles.inlineValue}>{buyerAddress || "______"}</Text> (House No,
+          Street, Village/Town, District and State).
+        </Text>
+
+        <Text style={styles.paragraph}>
+          The Registration Certificate and Insurance Certificate have been handed over to
+          him/her/them.
+        </Text>
+
+        <View style={styles.signatureSection}>
+          <View style={{ flex: 1 }}></View>
+          <View style={styles.signatureBox}>
+            <Text style={styles.signatureLine}>Signature of the Registered Owner (Transferor)</Text>
+          </View>
+        </View>
+        <Text style={{ marginTop: 10 }}>
+          Copy to the Registering Authority in whose jurisdiction the transferor reside.
+        </Text>
+        <Text style={{ marginTop: 10 }}>
+          Note: To be sent to the Registering Authority by Registered Post Acknowledgment due.
+        </Text>
+
+        <View style={styles.officialUse}>
+          <Text style={styles.subTitle}>OFFICE ENDORSEMENT</Text>
+          <Text style={{ marginBottom: 4 }}>
+            No. <Text style={styles.inlineValue}>{"______"}</Text> Dated{" "}
+            <Text style={styles.inlineValue}>{"______"}</Text>
+          </Text>
+          <Text>Office of the Registering Authority</Text>
+          <Text style={styles.paragraph}>
+            The ownership of the vehicle has been transferred to the name of{" "}
+            <Text style={styles.inlineValue}>{buyerName || "______"}</Text> with effect from{" "}
+            <Text style={styles.inlineValue}>{"______"}</Text> (date).
+          </Text>
+          <View style={styles.signatureSection}>
+            <View style={{ flex: 1 }}>
+              <Text>To</Text>
+              <Text style={styles.inlineValue}>{sellerName || "______"}</Text>
+              <Text>(Transferor)</Text>
+              <Text>By Registered Post or under proper acknowledgement</Text>
+            </View>
+            <View style={styles.signatureBox}>
+              <Text style={styles.signatureLine}>Registering Authority (Office Seal)</Text>
+            </View>
+          </View>
+        </View>
+      </Page>
+
+      {/* Page 4: Form 30 Part I */}
+      <Page size="A4" style={styles.page}>
+        <Text style={styles.formTitle}>FORM 30</Text>
+        <Text style={styles.subTitle}>[See Rule 55(2) and (3)]</Text>
+        <Text style={styles.subTitle}>REPORT OF TRANSFER OF OWNERSHIP OF A MOTOR VEHICLE</Text>
+        <Text style={{ textAlign: "center", marginBottom: 10, fontWeight: "bold" }}>
+          PART - I : For the use of the Transferor
+        </Text>
+
+        <Text style={{ textAlign: "center", marginBottom: 15, fontSize: 8 }}>
+          (To be made in duplicate if the vehicle is held under an agreement of
+          hire-purchase/lease/hypothecation and the duplicate copy with the endorsement of the
+          Registering Authority to be returned to the Financier simultaneously on making the entry
+          of the transfer of ownership in the Certificate of Registration and Registration Record)
+        </Text>
+
+        <View style={styles.toAddress}>
+          <Text>To,</Text>
+          <Text>The Registering Authority</Text>
+          <Text>Contai</Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{ marginBottom: 4 }}>
+            Name of the Transferor (Seller):{" "}
+            <Text style={styles.inlineValue}>{sellerName || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            Son/Wife/Daughter of: <Text style={styles.inlineValue}>{sellerCareOf || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            Full Address: <Text style={styles.inlineValue}>{sellerAddress || "______"}</Text>
+          </Text>
+        </View>
+
+        <Text style={styles.paragraph}>
+          I hereby declare that I/we have on this{" "}
+          <Text style={styles.inlineValue}>{purchaseDate || "____"}</Text> day of the year{" "}
+          <Text style={styles.inlineValue}>{purchaseYear || "____"}</Text> sold and delivered my
+          motor vehicle no <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> Make{" "}
+          <Text style={styles.inlineValue}>{vehicleModel || "______"}</Text> Chassis No{" "}
+          <Text style={styles.inlineValue}>{chassisNo || "______"}</Text> Engine No{" "}
+          <Text style={styles.inlineValue}>{engineNo || "______"}</Text> To Sri/Smt{" "}
+          <Text style={styles.inlineValue}>{buyerName || "______"}</Text> (Buyer)
+        </Text>
+
+        <Text style={styles.paragraph}>
+          Son/Wife/Daughter of <Text style={styles.inlineValue}>{buyerCareOf || "______"}</Text>{" "}
+          Residing at <Text style={styles.inlineValue}>{buyerAddress || "______"}</Text>
+        </Text>
+
+        <Text style={styles.paragraph}>
+          And handed over the Certificate of Registration and the Certificate of Insurance to
+          him/her/them.
+        </Text>
+
+        <Text style={styles.paragraph}>
+          I/We hereby declare that to the best of my/our knowledge the certificate of registration
+          of the vehicle has not been suspended or cancelled.
+        </Text>
+
+        <Text style={styles.paragraph}>
+          * I enclose the &quot;No Objection Certificate&quot; issued by the Registering Authority.
+        </Text>
+        <Text style={styles.paragraph}>
+          * If the &quot;No Objection Certificate&quot; from the Registering Authority is not
+          enclosed, the transferor should file along with this application a declaration as required
+          under Sub-Section (1) of Section 50.
+        </Text>
+
+        <View style={styles.signatureSection}>
+          <View style={{ flex: 1 }}>
+            <Text>Date: {purchaseDate}</Text>
+          </View>
+          <View style={styles.signatureBox}>
+            <Text style={styles.signatureLine}>Signature of the Transferor</Text>
+          </View>
+        </View>
+        <Text style={{ fontSize: 8 }}>* Details of suspension or cancellation.</Text>
+        <Text style={{ fontSize: 8 }}>* Strike out whichever is inapplicable.</Text>
+
+        <View style={styles.divider} />
+
+        {/* PART II */}
+        <Text style={{ textAlign: "center", marginBottom: 10, fontWeight: "bold" }}>
+          PART - II : For the use of the Transferee
+        </Text>
+
+        <View style={styles.toAddress}>
+          <Text>To,</Text>
+          <Text>The Registering Authority</Text>
+          <Text>Contai</Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{ marginBottom: 4 }}>
+            Name of the Transferee (Buyer):{" "}
+            <Text style={styles.inlineValue}>{buyerName || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            Son/Wife/Daughter of: <Text style={styles.inlineValue}>{buyerCareOf || "______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            Age: <Text style={styles.inlineValue}>{"______"}</Text>
+          </Text>
+          <Text style={{ marginBottom: 4 }}>
+            Full Address: <Text style={styles.inlineValue}>{buyerAddress || "______"}</Text>
+          </Text>
+          <Text style={{ fontSize: 8, marginTop: 2 }}>(Proof of address to be enclosed)</Text>
+        </View>
+
+        <Text style={styles.paragraph}>
+          I hereby declare that I/we have on this{" "}
+          <Text style={styles.inlineValue}>{purchaseDate || "____"}</Text> day of the year{" "}
+          <Text style={styles.inlineValue}>{purchaseYear || "____"}</Text> purchased the motor
+          vehicle no <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> from{" "}
+          <Text style={styles.inlineValue}>{sellerName || "______"}</Text> (Transferor) residing at{" "}
+          <Text style={styles.inlineValue}>{sellerAddress || "______"}</Text> and request that
+          necessary entries regarding the transfer of ownership of the vehicle in my/our name may be
+          recorded in the certificate of registration/certificate of fitness of the vehicle which is
+          enclosed.
+        </Text>
+
+        <Text style={styles.paragraph}>The Certificate of Insurance is also enclosed.</Text>
+
+        <View style={styles.signatureSection}>
+          <View style={{ flex: 1 }}>
+            <Text>Date: {purchaseDate}</Text>
+            <Text>Specimen Signature of the Transferee</Text>
+            <Text>1.</Text>
+            <Text>2.</Text>
+          </View>
+          <View style={styles.signatureBox}>
+            <Text style={styles.signatureLine}>Signature of the Transferee (Buyer)</Text>
+          </View>
+        </View>
+      </Page>
+
+      {/* Page 5: Form 30 Consent & Endorsement */}
+      <Page size="A4" style={styles.page}>
+        <Text style={{ textAlign: "center", marginBottom: 10, fontWeight: "bold" }}>
+          CONSENT OF THE FINANCIER
+        </Text>
+        <Text style={{ textAlign: "center", marginBottom: 15, fontSize: 10 }}>
+          (In the case of motor vehicle subject to an agreement of
+          hire-purchase/lease/hypothecation)
+        </Text>
+
+        <Text style={styles.paragraph}>
+          I/We being a party to an agreement of hire-purchase/lease/hypothecation in respect of
+          motor vehicle <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> give consent
+          to the transfer of ownership of the said vehicle to Sri/Smt/Kumari{" "}
+          <Text style={styles.inlineValue}>{buyerName || "______"}</Text> with whom I/we have
+          entered into an agreement of hire purchase/lease/hypothecation.
+        </Text>
+
+        <View style={styles.signatureSection}>
+          <View style={{ flex: 1 }}>
+            <Text>Date: {purchaseDate}</Text>
+          </View>
+          <View style={styles.signatureBox}>
+            <Text style={styles.signatureLine}>(Signature of the Financier)</Text>
+          </View>
+        </View>
+
+        <View style={styles.officialUse}>
+          <Text style={styles.subTitle}>OFFICE ENDORSEMENT</Text>
+          <Text style={{ marginBottom: 4 }}>
+            Ref. No. <Text style={styles.inlineValue}>{"______"}</Text> Office of the{" "}
+            <Text style={styles.inlineValue}>{"______"}</Text>
+          </Text>
+
+          <Text style={styles.paragraph}>
+            The transfer of ownership of vehicle under continued hypothecation with{" "}
+            <Text style={styles.inlineValue}>{financerName || "______"}</Text> has been recorded in
+            the Registration Certificate of the Vehicle{" "}
+            <Text style={styles.inlineValue}>{vehicleNo || "______"}</Text> and in the Registration
+            record of this office.
+          </Text>
+          <View style={styles.signatureSection}>
+            <View style={{ flex: 1 }}>
+              <Text>Date</Text>
+            </View>
+            <View style={styles.signatureBox}>
+              <Text style={styles.signatureLine}>Registering Authority</Text>
+            </View>
+          </View>
+
+          <View style={{ marginTop: 20 }}>
+            <Text>To</Text>
+            <Text style={styles.inlineValue}>
+              {financerName ? `${financerName}, ${financerAddress}` : "                "}
+            </Text>
+            <Text>(Name & address of the Financier)</Text>
+            <Text>By Registered Post or under proper acknowledgement</Text>
+          </View>
+        </View>
+      </Page>
+    </Document>
+  );
+};
+
+VehicleTransferPDF.propTypes = {
+  formData: PropTypes.shape({
+    vehicleNo: PropTypes.string,
+    chassisNo: PropTypes.string,
+    engineNo: PropTypes.string,
+    vehicleModel: PropTypes.string,
+    buyerName: PropTypes.string,
+    buyerCareOf: PropTypes.string,
+    buyerVillage: PropTypes.string,
+    buyerPO: PropTypes.string,
+    buyerPS: PropTypes.string,
+    buyerDist: PropTypes.string,
+    buyerPin: PropTypes.string,
+    buyerVoterId: PropTypes.string,
+    buyerAadhar: PropTypes.string,
+    buyerPan: PropTypes.string,
+    buyerMobile: PropTypes.string,
+    sellerName: PropTypes.string,
+    sellerCareOf: PropTypes.string,
+    sellerVillage: PropTypes.string,
+    sellerPO: PropTypes.string,
+    sellerPS: PropTypes.string,
+    sellerDist: PropTypes.string,
+    sellerPin: PropTypes.string,
+    sellerVoterId: PropTypes.string,
+    sellerAadhar: PropTypes.string,
+    sellerPan: PropTypes.string,
+    sellerMobile: PropTypes.string,
+    rcValidUpto: PropTypes.string,
+    taxTokenValidUpto: PropTypes.string,
+    insuranceValidUpto: PropTypes.string,
+    seatingCapacity: PropTypes.string,
+    appearanceDate: PropTypes.string,
+    purchaseDate: PropTypes.string,
+    purchaseYear: PropTypes.string,
+    financerName: PropTypes.string,
+    financerAddress: PropTypes.string,
+    applicationFee: PropTypes.string,
+  }),
+};
+
+export default VehicleTransferPDF;

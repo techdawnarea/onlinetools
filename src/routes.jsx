@@ -32,6 +32,11 @@ const routes = [
         description: "Online calculators",
         route: "/tools/calculators",
       },
+      {
+        name: "Vehicle Transfer",
+        description: "Generate Vehicle Transfer Forms",
+        route: "/tools/vehicle-transfer",
+      },
     ],
   },
   {

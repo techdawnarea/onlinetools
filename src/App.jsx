@@ -12,6 +12,7 @@ import theme from "assets/theme";
 
 // Pages
 import Presentation from "pages/Presentation";
+import VehicleTransferPage from "pages/VehicleTransferForm";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/tools/converters" element={<Presentation />} />
         <Route path="/tools/generators" element={<Presentation />} />
         <Route path="/tools/calculators" element={<Presentation />} />
+        <Route path="/tools/vehicle-transfer" element={<VehicleTransferPage />} />
         <Route path="/about" element={<Presentation />} />
         <Route path="/contact" element={<Presentation />} />
         <Route path="*" element={<Navigate to="/" />} />
