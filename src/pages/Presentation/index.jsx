@@ -78,89 +78,6 @@ function Presentation() {
             <Grid item xs={12} lg={4}>
               <FilledInfoCard
                 variant="gradient"
-                color="info"
-                icon="text_fields"
-                title="Text Tools"
-                description="Text manipulation tools - case converter, word counter, string utilities and more."
-                action={{
-                  type: "internal",
-                  route: "/tools/text",
-                  label: "Explore",
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <FilledInfoCard
-                color="info"
-                icon="swap_horiz"
-                title="Converters"
-                description="Convert between different formats - JSON, XML, CSV, Base64, and more."
-                action={{
-                  type: "internal",
-                  route: "/tools/converters",
-                  label: "Explore",
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <FilledInfoCard
-                color="info"
-                icon="auto_awesome"
-                title="Generators"
-                description="Generate passwords, UUIDs, lorem ipsum, QR codes and other content."
-                action={{
-                  type: "internal",
-                  route: "/tools/generators",
-                  label: "Explore",
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Container>
-        <Container sx={{ mt: 4 }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={4}>
-              <FilledInfoCard
-                color="info"
-                icon="calculate"
-                title="Calculators"
-                description="Online calculators for math, percentages, dates, and unit conversions."
-                action={{
-                  type: "internal",
-                  route: "/tools/calculators",
-                  label: "Explore",
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <FilledInfoCard
-                color="info"
-                icon="code"
-                title="Developer Tools"
-                description="Code formatters, minifiers, validators and other developer utilities."
-                action={{
-                  type: "internal",
-                  route: "/tools/dev",
-                  label: "Explore",
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <FilledInfoCard
-                color="info"
-                icon="image"
-                title="Image Tools"
-                description="Image compression, resizing, format conversion and editing tools."
-                action={{
-                  type: "internal",
-                  route: "/tools/image",
-                  label: "Explore",
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <FilledInfoCard
-                variant="gradient"
                 color="success"
                 icon="directions_car"
                 title="Vehicle Transfer Form"
@@ -172,6 +89,89 @@ function Presentation() {
                 }}
               />
             </Grid>
+            {/* <Grid item xs={12} lg={4}>
+              <FilledInfoCard
+                variant="gradient"
+                color="info"
+                icon="text_fields"
+                title="Text Tools"
+                description="Text manipulation tools - case converter, word counter, string utilities and more."
+                action={{
+                  type: "internal",
+                  route: "/tools/text",
+                  label: "Explore",
+                }}
+              />
+            </Grid> */}
+            {/* <Grid item xs={12} lg={4}>
+              <FilledInfoCard
+                color="info"
+                icon="swap_horiz"
+                title="Converters"
+                description="Convert between different formats - JSON, XML, CSV, Base64, and more."
+                action={{
+                  type: "internal",
+                  route: "/tools/converters",
+                  label: "Explore",
+                }}
+              />
+            </Grid> */}
+            {/* <Grid item xs={12} lg={4}>
+              <FilledInfoCard
+                color="info"
+                icon="auto_awesome"
+                title="Generators"
+                description="Generate passwords, UUIDs, lorem ipsum, QR codes and other content."
+                action={{
+                  type: "internal",
+                  route: "/tools/generators",
+                  label: "Explore",
+                }}
+              />
+            </Grid> */}
+          </Grid>
+        </Container>
+        <Container sx={{ mt: 4 }}>
+          <Grid container spacing={3}>
+            {/* <Grid item xs={12} lg={4}>
+              <FilledInfoCard
+                color="info"
+                icon="calculate"
+                title="Calculators"
+                description="Online calculators for math, percentages, dates, and unit conversions."
+                action={{
+                  type: "internal",
+                  route: "/tools/calculators",
+                  label: "Explore",
+                }}
+              />
+            </Grid> */}
+            {/* <Grid item xs={12} lg={4}>
+              <FilledInfoCard
+                color="info"
+                icon="code"
+                title="Developer Tools"
+                description="Code formatters, minifiers, validators and other developer utilities."
+                action={{
+                  type: "internal",
+                  route: "/tools/dev",
+                  label: "Explore",
+                }}
+              />
+            </Grid> */}
+            {/* <Grid item xs={12} lg={4}>
+              <FilledInfoCard
+                color="info"
+                icon="image"
+                title="Image Tools"
+                description="Image compression, resizing, format conversion and editing tools."
+                action={{
+                  type: "internal",
+                  route: "/tools/image",
+                  label: "Explore",
+                }}
+              />
+            </Grid> */}
           </Grid>
         </Container>
         <MKBox pt={12} pb={6}>
