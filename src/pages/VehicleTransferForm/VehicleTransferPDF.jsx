@@ -97,10 +97,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   detailItem: {
-    width: "48%",
+    width: "100%",
     flexDirection: "row",
     marginBottom: 4,
-    marginHorizontal: 5,
   },
   detailLabel: {
     fontWeight: "bold",
@@ -253,15 +252,16 @@ const VehicleTransferPDF = ({ formData }) => {
         </View>
 
         <Text style={{ marginBottom: 4 }}>
+          {"\n"}
           Sales Amount- <Text style={styles.inlineValue}>{applicationFee || "____"}</Text>
         </Text>
 
         <View style={styles.divider} />
 
-        {/* Details Boxes */}
-        <View style={styles.detailsBox}>
-          <Text style={styles.detailsTitle}>Buyers Details</Text>
-          <View style={styles.detailsGrid}>
+        {/* Details Boxes - 2 columns */}
+        <View style={{ flexDirection: "row", gap: 8 }}>
+          <View style={{ ...styles.detailsBox, flex: 1 }}>
+            <Text style={styles.detailsTitle}>Buyers Details</Text>
             <View style={styles.detailItem}>
               <Text style={styles.detailLabel}>NAME-</Text>
               <Text style={styles.detailValue}>{buyerName}</Text>
@@ -291,7 +291,7 @@ const VehicleTransferPDF = ({ formData }) => {
               <Text style={styles.detailValue}>{buyerPin}</Text>
             </View>
             <View style={styles.detailItem}>
-              <Text style={styles.detailLabel}>VOTER ID-</Text>
+              <Text style={styles.detailLabel}>VOTER-</Text>
               <Text style={styles.detailValue}>{buyerVoterId}</Text>
             </View>
             <View style={styles.detailItem}>
@@ -307,11 +307,9 @@ const VehicleTransferPDF = ({ formData }) => {
               <Text style={styles.detailValue}>{buyerMobile}</Text>
             </View>
           </View>
-        </View>
 
-        <View style={styles.detailsBox}>
-          <Text style={styles.detailsTitle}>Sellers Details</Text>
-          <View style={styles.detailsGrid}>
+          <View style={{ ...styles.detailsBox, flex: 1 }}>
+            <Text style={styles.detailsTitle}>Sellers Details</Text>
             <View style={styles.detailItem}>
               <Text style={styles.detailLabel}>NAME-</Text>
               <Text style={styles.detailValue}>{sellerName}</Text>
@@ -341,7 +339,7 @@ const VehicleTransferPDF = ({ formData }) => {
               <Text style={styles.detailValue}>{sellerPin}</Text>
             </View>
             <View style={styles.detailItem}>
-              <Text style={styles.detailLabel}>VOTER ID-</Text>
+              <Text style={styles.detailLabel}>VOTER-</Text>
               <Text style={styles.detailValue}>{sellerVoterId}</Text>
             </View>
             <View style={styles.detailItem}>
