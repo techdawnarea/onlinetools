@@ -15,8 +15,8 @@ const AdComponent = () => {
       <ins className="adsbygoogle"
            style={{ display: 'block' }}
            data-ad-client="ca-pub-8969626196229370"
-           data-ad-slot="1234567890" // Replace with your actual Ad Slot ID
-           data-ad-format="auto"
+           data-ad-slot="9889877271" // Replace with your actual Ad Slot ID
+           data-ad-format="autorelaxed"
            data-full-width-responsive="true"></ins>
     </div>
   );
