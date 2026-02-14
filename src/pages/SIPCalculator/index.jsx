@@ -26,6 +26,7 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import routes from "routes";
 import footerRoutes from "footer.routes";
+import AdComponent from "../../Ad/AdComponent";
 
 function formatIndianCurrency(num) {
   if (num == null || isNaN(num)) return "0";
@@ -222,6 +223,9 @@ function SIPCalculator() {
       <Container sx={{ mt: -6, mb: 6 }}>
         <Card sx={{ p: { xs: 2, md: 4 }, boxShadow: 3, borderRadius: 2 }}>
           <Grid container spacing={4}>
+            <Grid item xs={12} lg={4}>
+              <AdComponent />
+            </Grid>
             {/* Left: Sliders */}
             <Grid item xs={12} md={7}>
               {/* Monthly Investment */}

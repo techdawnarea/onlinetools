@@ -18,6 +18,7 @@ import footerRoutes from "footer.routes";
 
 // Images
 import bgImage from "assets/images/bg-presentation.jpg";
+import AdComponent from "../../Ad/AdComponent";
 
 function Presentation() {
   return (
@@ -89,6 +90,7 @@ function Presentation() {
                 }}
               />
             </Grid>
+            
             <Grid item xs={12} lg={4}>
               <FilledInfoCard
                 variant="gradient"
@@ -116,6 +118,9 @@ function Presentation() {
                   label: "Open Tool",
                 }}
               />
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <AdComponent />
             </Grid>
             {/* <Grid item xs={12} lg={4}>
               <FilledInfoCard
