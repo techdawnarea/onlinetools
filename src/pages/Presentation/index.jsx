@@ -119,9 +119,6 @@ function Presentation() {
                 }}
               />
             </Grid>
-            <Grid item xs={12} lg={4}>
-              <AdComponent />
-            </Grid>
             {/* <Grid item xs={12} lg={4}>
               <FilledInfoCard
                 variant="gradient"
@@ -206,6 +203,9 @@ function Presentation() {
               />
             </Grid> */}
           </Grid>
+        </Container>
+        <Container sx={{ mt: 4 }}>
+          <AdComponent style={{ minHeight: 100 }} />
         </Container>
         <MKBox pt={12} pb={6}>
           <Container>

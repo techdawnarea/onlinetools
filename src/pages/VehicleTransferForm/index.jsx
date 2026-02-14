@@ -8,6 +8,7 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 import routes from "routes";
 
 import footerRoutes from "footer.routes";
+import AdComponent from "../../Ad/AdComponent";
 
 // Background image (reusing one from the template if available, or just a gradient)
 import bgImage from "assets/images/bg-presentation.jpg";
@@ -120,6 +121,9 @@ const VehicleTransferPage = () => {
           </Grid>
         </Container>
       </Box>
+      <Container sx={{ mt: 4, mb: 4 }}>
+        <AdComponent style={{ minHeight: 100 }} />
+      </Container>
       <DefaultFooter content={footerRoutes} />
     </>
   );

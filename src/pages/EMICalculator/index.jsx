@@ -219,9 +219,6 @@ function EMICalculator() {
 
       <Container sx={{ mt: -6, mb: 6 }}>
         <Card sx={{ p: { xs: 2, md: 4 }, boxShadow: 3, borderRadius: 2 }}>
-          <Grid item xs={12} lg={4}>
-              <AdComponent />
-            </Grid>
           <Grid container spacing={4}>
             {/* Left: Sliders */}
             <Grid item xs={12} md={7}>
@@ -524,6 +521,10 @@ function EMICalculator() {
             </Collapse>
           </Box>
         </Card>
+      </Container>
+
+      <Container sx={{ mt: 4, mb: 4 }}>
+        <AdComponent style={{ minHeight: 100 }} />
       </Container>
 
       <MKBox pt={6} px={1} mt={6}>
